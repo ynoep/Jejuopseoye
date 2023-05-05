@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -39,7 +40,6 @@ public class MemberController {
 	
 	private WeatherParsing weather;
 
-//	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	@PostMapping("/login")
 	String login(Model model, String userId, String userPwd) {
 		log.info("id : " + userId + ", pwd : " + userPwd);
@@ -88,7 +88,6 @@ public class MemberController {
 		return "/member/signup";
 	}
 	
-	
 	@GetMapping("/loginview/kakaoLogin")
 	public String kakaoLogin(Model model, String code) {
 		log.info("로그인 요청");
@@ -113,24 +112,27 @@ public class MemberController {
 		return "common/msg";
 	}
 
-	// 회원가입
-	// ModelAndView 사용법 : 가능하면 프로젝트에서는 스타일 통일할 것! 현업 일부와 전자정부프레임워크 표준.
 	@PostMapping("/member/signup")
-	public ModelAndView enroll(ModelAndView model, @ModelAttribute Member member) {
+	public String enroll(Model model, @ModelAttribute Member member, @RequestParam("passwordConfirm") String pass2) {
 		log.info("회원가입, member : " + member.toString());
+
+		// 비밀번호 일치하는지 검사 수행
+		if (!member.getPassword().equals(pass2)) {
+			model.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
+			model.addAttribute("location", "/member/signup");
+			return "common/msg";
+		}
 
 		int result = service.save(member);
 
 		if (result > 0) { // 성공
-			model.addObject("msg", "회원가입에 성공하셨습니다. 제주옵서예에 오신 걸 환영합니다!");
-			model.addObject("location", "/");
+			model.addAttribute("msg", "회원가입에 성공하셨습니다.\\n제주옵서예에 오신 걸 환영합니다!");
+			model.addAttribute("location", "/");
 		} else { // 실패
-			model.addObject("msg", "회원가입에 실패하였습니다. 입력정보를 확인하세요.");
-			model.addObject("location", "/member/signup");
-
+			model.addAttribute("msg", "회원가입에 실패하였습니다.\\n입력정보를 확인하세요.");
+			model.addAttribute("location", "/member/signup");
 		}
-		model.setViewName("common/msg");
-		return model;
+		return "common/msg";
 	}
 
 	// AJAX 회원아이디 중복 검사부

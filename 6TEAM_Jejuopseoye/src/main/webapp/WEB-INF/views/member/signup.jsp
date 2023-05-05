@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -15,27 +16,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="all,follow">
 <!-- Price Slider Stylesheets -->
-<link rel="stylesheet"	href="${path}/resources/vendor/nouislider/nouislider.css">
+<link rel="stylesheet"
+	href="${path}/resources/vendor/nouislider/nouislider.css">
 <!-- Google fonts - Playfair Display-->
-<link rel="stylesheet"	href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700">
 <!-- Google fonts - Poppins-->
-<link rel="stylesheet"	href="https://fonts.googleapis.com/css?family=Poppins:300,400,400i,700">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Poppins:300,400,400i,700">
 <!-- swiper-->
-<link rel="stylesheet"	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css">
 <!-- Magnigic Popup-->
-<link rel="stylesheet"	href="${path}/resources/vendor/magnific-popup/magnific-popup.css">
+<link rel="stylesheet"
+	href="${path}/resources/vendor/magnific-popup/magnific-popup.css">
 <!-- theme stylesheet-->
-<link rel="stylesheet" href="${path}/resources/css/style.default.css" id="theme-stylesheet">
+<link rel="stylesheet" href="${path}/resources/css/style.default.css"
+	id="theme-stylesheet">
 <!-- Custom stylesheet - for your changes-->
 <link rel="stylesheet" href="${path}/resources/css/custom.css">
 <!-- Favicon-->
-<link rel="shortcut icon" href="${path}/resources/icons/homepage-logo.svg">
+<link rel="shortcut icon"
+	href="${path}/resources/icons/homepage-logo.svg">
 <!-- Tweaks for older IEs-->
 <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 <!-- Font Awesome CSS-->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
 	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
 	crossorigin="anonymous">
 </head>
@@ -49,37 +58,41 @@
 						<h2>회원가입</h2>
 						<p class="text-muted">제주옵서예와 함께 멋진 여행을 계획해보세요</p>
 					</div>
-					<form class="form-validate" name="memberEnrollFrm" action="${path}/member/signup" method="post">
+					<form class="form-validate" name="memberEnrollFrm"
+						action="${path}/member/signup" method="post">
 						<input type="hidden" name="kakaoToKen" value="${kakaoMap.id}">
-					
+
 						<div class="mb-3">
-							<label class="form-label" for="loginUsername">ID</label> 
-							<input class="form-control" name="id" id="userId"
-								type="text" value="${kakaoMap.email}" placeholder="아이디를 입력하세요" required>
+							<label class="form-label" for="loginUsername">ID</label> <input
+								class="form-control" name="id" id="userId" type="text"
+								value="${kakaoMap.email}" placeholder="아이디를 입력하세요" required>
 						</div>
 
 						<div class="mb-3">
 							<label class="form-label" for="loginPassword">PASSWORD</label> <input
-								class="form-control" name="password" id="pass1"
+								class="form-control" name="password" id="pass1" onkeyup="passwordCheck()"
 								placeholder="Password" type="password" required>
 						</div>
 						<div class="mb-3">
 							<label class="form-label" for="loginPassword2">Confirm
-								your password</label> <input class="form-control" id="pass2" 
-								placeholder="Password" type="password" required>
+								your password</label> <input class="form-control" id="pass2" name="passwordConfirm"
+								onkeyup="passwordCheck()" placeholder="Password" type="password"
+								required> 
+								<span id="passMessage" style="font-style: italic; font-size: 12px;"></span>
 						</div>
 						<div class="mb-3">
 							<label class="form-label" for="Usernickname">NICKNAME</label> <input
 								class="form-control" name="nickName" id="Usernickname"
-								type="text" value="${kakaoMap.nickname}" placeholder="닉네임을 입력하세요(4~8자)" required>
-								
+								type="text" value="${kakaoMap.nickname}"
+								placeholder="닉네임을 입력하세요(4~8자)" required>
+
 						</div>
 						<div class="mb-2">
 							<label class="form-label" for="loginUseremail">E-MAIL</label><br>
 							<div class="mail_box">
 								<input name="email1" class="mail" type="text"> @ <input
-									name="email2" id="email_input" class="mail" type="text"> <select
-									id="email-list" class="mail_list">
+									name="email2" id="email_input" class="mail" type="text">
+								<select id="email-list" class="mail_list">
 									<option value="type" selected>직접 입력</option>
 									<option value="naver.com">naver.com</option>
 									<option value="gmail.com">gmail.com</option>
@@ -90,17 +103,20 @@
 						</div>
 						<div class="mb-3">
 							<label class="form-label" for="UserPhone">PHONE</label> <input
-								class="form-control" name="phone" id="UserPhone"
-								type="tel" placeholder="'-'제외한 11자리를 입력하세요" maxlength="11">
+								class="form-control" name="phone" id="UserPhone" type="tel"
+								placeholder="'-'제외한 11자리를 입력하세요" maxlength="11">
 						</div>
 
 						<div class="d-grid">
-							<button class="btn btn-lg btn-primary mt-4" type="submit" id="enrollSubmit">가입하기</button>
+							<button class="btn btn-lg btn-primary mt-4" type="submit"
+								id="enrollSubmit">가입하기</button>
 						</div>
 						<hr class="my-3 hr-text letter-spacing-2" data-content="OR">
 						<div class="d-grid gap-2">
-							<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=f6be3d0db31d9495825cdd8c3d238530&redirect_uri=http://localhost/mvc/member/signup/kakao">
-							<img src="${path}/resources/img/kakao_signup.png" style="width: 100%;">
+							<a
+								href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=f6be3d0db31d9495825cdd8c3d238530&redirect_uri=http://localhost/mvc/member/signup/kakao">
+								<img src="${path}/resources/img/kakao_signup.png"
+								style="width: 100%;">
 							</a>
 						</div>
 						<hr class="my-3">
@@ -108,13 +124,13 @@
 							<small class="text-muted text-center">이미 회원이신가요? <a
 								href="${path}/member/loginview">로그인 </a></small>
 						</p>
-					<a class="close-absolute me-md-5 me-xl-6 pt-2" href="${path}"
-						style="text-decoration: none;">
-						<h6 class="mt-1" style="color: #000; font-weight: 400;">돌아가기</h6>
-					</a>
+						<a class="close-absolute me-md-5 me-xl-6 pt-2" href="${path}"
+							style="text-decoration: none;">
+							<h6 class="mt-1" style="color: #000; font-weight: 400;">돌아가기</h6>
+						</a>
 					</form>
 				</div>
-				
+
 			</div>
 			<div class="col-md-4 col-lg-6 col-xl-6 d-none d-md-block">
 				<!-- Image-->
@@ -165,34 +181,27 @@
     //- injectSvgSprite('${path}icons/orion-svg-sprite.svg'); 
     injectSvgSprite('https://demo.bootstrapious.com/directory/1-4/icons/orion-svg-sprite.svg');
     
-
   </script>
-  
-  <script type="text/javascript">
-	$(function() {
-		$("#pass2").blur((event) => {
-			let pass1 = $("#pass1").val();			
-			let pass2 = $(event.target).val();
-			
-			if(pass1.trim() != pass2.trim()) {
-				alert("비밀번호가 일치하지 않습니다.");
-				
-				$("#pass1").val("");
-				$(event.target).val("");
-				$("#pass1").focus();
+
+	<script type="text/javascript">
+	function passwordCheck(){
+			var pass1=$("#pass1").val();
+			var pass2=$("#pass2").val();
+			if(pass1 !=pass2){
+				$("#passMessage").html("<span style='color:red;'> 비밀번호가 서로 일치하지 않습니다.");
+			}else{
+
+				$("#passMessage").html("<span style='color:blue;'> 비밀번호가 일치합니다.");
+				$("#password").val(pass1);
 			}
-		});
+		}
     	
 	    $("#enrollSubmit").on("click", () => {
 	    	// TODO 전송하기 전에 각 영역에 유효성 검사로직을 추가하는 부분!
 	    	return false;
 	    });
-	    
-	});
-	
-	
-	
 	</script>
+
 	<!-- jQuery-->
 	<script src="${path}/resources/vendor/jquery/jquery.min.js"></script>
 	<!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
