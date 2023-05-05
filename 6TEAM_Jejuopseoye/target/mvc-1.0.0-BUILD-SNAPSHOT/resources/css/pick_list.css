@@ -1,0 +1,11 @@
+.table-responsive-pick {
+    width: 700px;
+    position: relative;
+    left: 300px;
+  }
+  .pick-button {
+    background-color: orange;
+    border-style: none;
+    border: 2px solid orange;
+    border-radius: 10px;
+  }

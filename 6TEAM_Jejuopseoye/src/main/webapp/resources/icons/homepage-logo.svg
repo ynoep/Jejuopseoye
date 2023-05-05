@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="50" viewBox="0 0 2634 948">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        font-size: 625px;
+        font-family: Gugi;
+      }
+
+      .cls-1 {
+        fill: #ff9228;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <text id="제주" class="cls-1" x="4" y="556">제주</text>
+  <text id="옵서예" class="cls-2" x="844.792" y="848">옵서예</text>
+</svg>

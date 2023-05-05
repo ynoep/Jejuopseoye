@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.multi.mvc.content.model.mapper.ContentMapper">
+
+	<resultMap type="Content" id="contentListResultMap">
+		<id property="no" column="NO"/>
+		<result property="contentsId" column="CONTENTSID"/>
+		<result property="alltag" column="ALLTAG"/>
+		<result property="title" column="TITLE"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="roadaddress" column="ROADADDRESS"/>
+		<result property="tag" column="TAG"/>
+		<result property="introduction" column="INTRODUCTION"/>
+		<result property="latitude" column="LATITUDE"/>
+		<result property="longitude" column="LONGITUDE"/>
+		<result property="postcode" column="POSTCODE"/>
+		<result property="phoneno" column="PHONENO"/>
+		<result property="likeAmount" column="LIKEAMOUNT"/>
+		<result property="contentscdValue" column="CONTENT_VALUE"/>
+		<result property="contentscdLabel" column="CONTENT_LABEL"/>
+		<result property="imgpath" column="IMGPATH"/>
+		<result property="thumbnailpath" column="THUMBNAILPATH"/>
+	</resultMap>
+	
+	<resultMap type="ContentReply" id="contentReplyResultMap">
+		<id 	property="no"			column="CONTENT_REPLY_NO"/>
+		<result property="writerNo" 	column="USER_NO"/>
+		<result property="nickName" 	column="NICKNAME"/>
+		<result property="contentNo" 	column="CONTENT_NO"/>
+		<result property="content" 		column="CONTENT"/>
+		<result property="status" 	column="STATUS"/>
+		<result property="createDate" 	column="CREATE_DATE"/>
+		<result property="modifyDate" 	column="MODIFY_DATE"/>
+	</resultMap>
+	
+	<resultMap type="Content" id="contentDetailResultMap" extends="contentListResultMap">
+		<collection property="replies" javaType="arrayList" columnPrefix="R_" 
+												resultMap="contentReplyResultMap"/>
+	</resultMap>
+	
+	<select id="selectContentList" resultMap="contentListResultMap" parameterType="map">
+		SELECT  
+			C.NO, C.CONTENTSID, C.ALLTAG, C.TITLE, 
+			C.ADDRESS, C.ROADADDRESS, C.TAG, 
+			C.INTRODUCTION, C.LATITUDE, C.LONGITUDE, 
+			C.POSTCODE, C.PHONENO, C.LIKEAMOUNT, 
+			C.CONTENT_VALUE, C.CONTENT_LABEL, C.IMGPATH, C.THUMBNAILPATH 
+		FROM `CONTENT` C 
+		WHERE 1 = 1 
+		<if test="option != nill">
+			AND C.CONTENT_VALUE = '${option}' 
+		</if>
+		<if test="title != null">
+			AND C.TITLE LIKE '%${title}%' 
+		</if>
+		
+		ORDER BY C.NO DESC LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	<select id="selectContentReplyList" resultMap="contentListResultMap" parameterType="map">
+		SELECT  
+			R.CONTENT_REPLY_NO, R.CONTENT_NO, R.USER_NO, 
+			R.CONTENT, STATUS, R.CREATE_DATE, R.MODIFY_DATE 
+		FROM `CONTENT_REPLY` R 
+		WHERE R.CONTENT_NO = '${no}' 
+		ORDER BY C.NO DESC LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	<select id="selectContentCount" resultType="int" parameterType="map">
+		SELECT  
+			COUNT(*)
+		FROM `CONTENT` C 
+		WHERE 1 = 1 
+		<if test="title != null">
+			AND C.TITLE LIKE '%${title}%' 
+		</if>
+		<if test="option != nill">
+			AND C.CONTENT_VALUE = '${option}' 
+		</if>
+	</select>
+	
+	<select id="selectContentReplyCount" resultType="int" parameterType="map">
+		SELECT  
+			COUNT(*)
+		FROM `CONTENT_REPLY` R 
+		WHERE R.CONTENT_NO = '${no}' 
+		
+	</select>
+	
+	<select id="selectContentByNo" parameterType="map" resultMap="contentDetailResultMap">
+		SELECT  
+			C.NO, C.CONTENTSID, C.ALLTAG, C.TITLE, 
+			C.ADDRESS, C.ROADADDRESS, C.TAG, 
+			C.INTRODUCTION, C.LATITUDE, C.LONGITUDE, 
+			C.POSTCODE, C.PHONENO, C.LIKEAMOUNT, 
+			C.CONTENT_VALUE, C.CONTENT_LABEL, C.IMGPATH, C.THUMBNAILPATH
+		FROM CONTENT C 
+
+		WHERE 1 = 1 
+		<if test="id != null">
+			AND C.CONTENTSID LIKE '%${id}%' 
+		</if>
+		<if test="no != null">
+			AND C.NO = #{no} 
+		</if>
+	</select>
+	
+	<insert id="insertContentReply" parameterType="ContentReply">
+		INSERT INTO REPLY(
+				CONTENT_REPLY_NO, CONTENT_NO, USER_NO, 
+				CONTENT, STATUS, CREATE_DATE, MODIFY_DATE) 
+			VALUES(
+				0, #{contentNo}, #{writerNo}, #{content}, 
+				DEFAULT, DEFAULT, DEFAULT
+			)
+	</insert>
+	
+	<update id="updateRikeAmount" parameterType="map">
+		UPDATE CONTENT SET LIKEAMOUNT=#{likeAmount} WHERE NO=#{no}
+	</update>
+	
+	<delete id="deleteContentReply" parameterType="int">
+		DELETE FROM CONTENT_REPLY WHERE CONTENT_REPLY_NO=#{no}
+	</delete>
+	
+</mapper>

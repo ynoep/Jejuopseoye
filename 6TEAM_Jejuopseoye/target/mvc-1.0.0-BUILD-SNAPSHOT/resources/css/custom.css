@@ -1,0 +1,399 @@
+@font-face {
+  font-family: 'Godo';
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Godo';
+  font-style: normal;
+  font-weight: 700;
+  src: url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff') format('woff');
+}
+
+.godo * {
+  font-family: 'Godo', sans-serif;
+}
+
+:root {
+  --bs-link-color: #ff9228;
+  --bs-link-hover-color: #ff9228;
+  --bs-list-group-active-bg: #ff9228;
+  --bs-list-group-active-border-color: #ff9228;
+}
+
+.searchbarlocation {
+  position: relative;
+  left: 18%;
+}
+
+.attract_list {
+  width: 80%;
+}
+
+.attract {
+  margin-left: auto;
+  bottom: 10px;
+  width: 130px;
+}
+
+.attract_btn {
+  border: solid 1px gainsboro;
+  padding-left: 5px;
+  margin-bottom: 5px;
+
+}
+
+.page-link {
+  color: #000;
+}
+
+.page-link:hover {
+  color: var(--bs-link-hover-color);
+}
+
+
+h6,
+.h6,
+h5,
+.h5,
+h4,
+.h4,
+h3,
+.h3,
+h2,
+.h2,
+h1,
+.h1 {
+  font-family: 'Godo', 'Poppins', sans-serif;
+  font-weight: 700;
+}
+
+a {
+  color: var(--bs-link-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--bs-link-hover-color);
+  text-decoration: underline;
+}
+
+.container {
+  width: 100%;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+hr {
+  margin: 0.5rem 0;
+}
+
+p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+.dropdown-menu {
+  font-family: 'Godo';
+  --bs-dropdown-link-hover-color: #ff9228;
+}
+
+
+/* 그림자 효과(공통적용) */
+.card {
+  box-shadow: 0 5px 10px -7px rgba(0, 0, 0, 1);
+}
+
+
+/*   버튼 oooooooooooooooooooooooooooooooooooooooo */
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #ff9228;
+  --bs-btn-border-color: #ff9228;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #ed7e16;
+  --bs-btn-hover-border-color: #ed7e16;
+  --bs-btn-focus-shadow-rgb: 105, 125, 249;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #ed7e16;
+  --bs-btn-active-border-color: #ed7e16;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(254, 185, 127, 0.5);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #ff9228;
+  --bs-btn-disabled-border-color: #ff9228;
+
+}
+
+.btn-primary {
+  color: var(--bs-btn-color);
+  background-color: var(--bs-btn-bg);
+  border-color: var(--bs-btn-border-color);
+}
+
+.btn-primary:hover {
+  color: var(--bs-btn-color);
+  background-color: var(--bs-btn-hover-bg);
+  border-color: var(--bs-btn-hover-border-color);
+}
+
+.btn-check:focus+.btn-primary,
+.btn-primary:focus {
+  color: #fff;
+  background-color: var(--bs-btn-bg);
+  border-color: var(--bs-btn-border-color);
+  box-shadow: 0 0 0 0.25rem rgba(254, 185, 127, 0.5);
+}
+
+.btn-check:checked+.btn-primary,
+.btn-check:active+.btn-primary,
+.btn-primary:active,
+.btn-primary.active,
+.show>.btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: var(--bs-btn-bg);
+  border-color: var(--bs-btn-border-color);
+}
+
+.btn-check:checked+.btn-primary:focus,
+.btn-check:active+.btn-primary:focus,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.25rem rgba(105, 125, 249, 0.5);
+}
+
+.btn-primary:disabled,
+.btn-primary.disabled {
+  color: #fff;
+  background-color: var(--bs-btn-bg);
+  border-color: var(--bs-btn-border-color);
+}
+
+/* 마이페이지 oooooooooooooooooooooooooooooooooooooooo */
+
+.set-card {
+  font-family: "Godo";
+  font-weight: 400;
+}
+
+.form-text {
+  color: var(--bs-link-color);
+}
+
+#password_change {
+  font-family: "Poppins", sans-serif;
+  margin-top: 25.59px;
+  vertical-align: middle;
+}
+
+.text-secondary {
+  color: #ed7e16 !important;
+
+}
+
+.icon-rounded {
+  width: 5rem;
+  height: 5rem;
+  line-height: 5rem;
+}
+
+.bg-icon-light {
+  background-color: #fbeadb;
+
+}
+
+
+/* 개인정보 oooooooooooooooooooooooooooooooooooooooo */
+
+.form-outline {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.birth_list {
+  margin-left: 5px;
+  width: 20%;
+  height: 100%;
+}
+
+.birth_list:first-child {
+  margin-left: 0;
+  width: 25%;
+}
+
+
+/*    메일  ooooooooooooooooooooooooooo  */
+
+.mail_box {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.mail,
+.mail_list,
+.mail_list_p,
+.birth_list {
+  font-size: 1rem;
+  color: #212529;
+  line-height: 1.6;
+  font-weight: 400;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.4rem;
+}
+
+.mail {
+  width: 34%;
+}
+
+/* 가입 email */
+.mail_list {
+  position: absolute;
+  width: 26%;
+  height: 40px;
+  margin-left: 5px;
+}
+
+/* 회원정보 email */
+.mail_list_p {
+  position: absolute;
+  height: 40px;
+  margin-left: 5px;
+}
+
+.btn-social {
+  padding: 0.5rem 0;
+}
+
+/* 헤더 */
+
+/* 메뉴 */
+.bg-black-op {
+  --bs-bg-opacity: 0.4;
+  background-color: rgba(var(--bs-black-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.navbar-nav>li {
+  margin-left: 20px;
+}
+
+.nav-item>.nav-link {
+  font-size: 30px;
+}
+
+.nav-item>.nav-name {
+  font-size: 20px;
+}
+
+/* 사진 및 검색 부 */
+.multi-slider_modify {
+  height: 100vh;
+  max-height: 500px;
+}
+
+.text-link {
+  color: #343a40;
+}
+
+.foodAvatar {
+  display: inline-block;
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  border: #dee2e6;
+  border-radius: 5%;
+  background: #fff;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.15);
+  line-height: 3rem;
+}
+
+.foodAvatar.foodAvatar-sm {
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+}
+
+.foodAvatar.foodAvatar-lg {
+  width: 5rem;
+  height: 5rem;
+  line-height: 5rem;
+}
+
+.foodAvatar.foodAvatar-xl {
+  width: 7rem;
+  height: 7rem;
+  line-height: 7rem;
+}
+
+.foodAvatar.foodAvatar-xxl {
+  width: 12rem;
+  min-width: 12rem;
+  height: 10rem;
+  line-height: 10rem;
+}
+
+.foodAvatar.foodAvatar-border-white {
+  border: solid 2px #fff;
+}
+
+.navbar {
+  --bs-navbar-font-size: 1.5rem;
+  --bs-navbar-hover-color: #ff9228;
+}
+
+.start-18 {
+  left: 18%;
+}
+
+.hero-web {
+  height: 100vh;
+  max-height: 500px;
+}
+
+/* a - not color, not underline */
+.custom-a {
+  color: var(--bs-body-color) !important;
+}
+
+.custom-a:hover {
+  color: var(--bs-link-color) !important;
+  text-decoration: none;
+}
+
+/* 여행후기 사진 */
+.travel-pic {
+  width: 100%;
+  height: 100%;
+}
+
+a:hover {
+  color: #ff9228;
+  text-decoration: underline;
+}
+
+.map {
+  height: 1200px;
+  width: 1625px;
+  /* The width is the width of the web page */
+}
+
+.table-responsive-pick {
+  width: 700px;
+  position: relative;
+  left: 300px;
+}
+
+.pick-button {
+  background-color: orange;
+  border-style: none;
+  border: 2px solid orange;
+  border-radius: 10px;
+}
