@@ -71,18 +71,9 @@
 								id="userPwd" placeholder="비밀번호를 입력하세요" type="password"
 								data-msg="Please enter your password" required>
 						</div>
-						<div class="mb-4">
-							<div class="form-check">
-								<input class="form-check-input" id="loginRemember"
-									type="checkbox"> <label
-									class="form-check-label text-muted" for="loginRemember">
-									<span class="text-sm">아이디 저장</span>
-								</label>
-							</div>
-						</div>
 						<!-- Submit-->
 						<div class="d-grid">
-							<button class="btn btn-lg btn-primary mt-3" type="submit">로그인</button>
+							<button class="btn btn-lg btn-primary mt-3" type="submit" onclick="loginProcess()">로그인</button>
 						</div>
 						<hr class="my-3 hr-text letter-spacing-2" data-content="OR">
 						<div class="d-grid gap-2">
@@ -140,6 +131,7 @@
     injectSvgSprite('https://demo.bootstrapious.com/directory/1-4/icons/orion-svg-sprite.svg');
 
     </script>
+    
 	<!-- jQuery-->
 	<script src="${path}/resources/vendor/jquery/jquery.min.js"></script>
 	<!-- Bootstrap JS bundle - Bootstrap + PopperJS-->

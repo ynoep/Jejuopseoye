@@ -18,8 +18,7 @@ public class MemberService {
 	private MemberMapper mapper;
 
 	@Autowired
-	private BCryptPasswordEncoder pwEncoder; // SHA-256 hash code로 패스워드 일방향 암호 지원 모듈
-	// 1234 -> nsikldvnisoldjhv2423jo23 (평문 -> hashCode)
+	private BCryptPasswordEncoder pwEncoder; 
 
 	public Member login(String id, String pw) {
 		Member member = mapper.selectMember(id);
@@ -31,10 +30,6 @@ public class MemberService {
 		System.out.println(member.getPassword()); // hash로 암호화된 코드가 들어있다.
 		System.out.println(pwEncoder.encode(pw)); // encode를 통해 평문에서 hash 코드로 변환
 		System.out.println(pwEncoder.matches(pw, member.getPassword())); // 평문 변환하고 비교까지
-
-//		if (id.equals(member.getId())) { // admin 테스트를 위한 코드
-//			return member;
-//		}
 
 		if(member != null && pwEncoder.matches(pw, member.getPassword()) == true) {
 			// 성공
@@ -59,7 +54,7 @@ public class MemberService {
 		}
 		return result;
 	}
-
+	
 	public boolean validate(String userId) {
 		return this.findById(userId) != null;
 	}
@@ -72,7 +67,7 @@ public class MemberService {
 	public int delete(int no) {
 		return mapper.deleteMember(no);
 	}
-
+	
 	@Transactional(rollbackFor = Exception.class)
 	public int updatePwd(Member loginMember, String userPW) {
 		Map<String, String> map = new HashMap<String, String>();

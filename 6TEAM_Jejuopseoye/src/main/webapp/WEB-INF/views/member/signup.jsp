@@ -63,20 +63,23 @@
 						<input type="hidden" name="kakaoToKen" value="${kakaoMap.id}">
 
 						<div class="mb-3">
-							<label class="form-label" for="loginUsername">ID</label> <input
-								class="form-control" name="id" id="userId" type="text"
-								value="${kakaoMap.email}" placeholder="아이디를 입력하세요" required>
+							<label class="form-label" for="loginUsername">ID</label> 
+							<div class="d-flex align-items-center">
+								<input class="form-control" name="id" id="userId" type="text" maxlength="12"
+									value="${kakaoMap.email}" placeholder="영문소문자와 숫자를 조합하여 6~12자로 입력하세요."  onkeyup="checkId()" required>
+								<button type="button" class="btn btn-primary ms-2" style="width: 120px;" onclick="IdDuplication()">중복확인</button>
+							</div>
 						</div>
 
 						<div class="mb-3">
 							<label class="form-label" for="loginPassword">PASSWORD</label> <input
-								class="form-control" name="password" id="pass1" onkeyup="passwordCheck()"
-								placeholder="Password" type="password" required>
+								class="form-control" name="password" id="pass1" onkeyup="passwordCheck()" maxlength="16"
+								placeholder="비밀번호를 입력하세요" type="password" required>
 						</div>
 						<div class="mb-3">
 							<label class="form-label" for="loginPassword2">Confirm
-								your password</label> <input class="form-control" id="pass2" name="passwordConfirm"
-								onkeyup="passwordCheck()" placeholder="Password" type="password"
+								your password</label> <input class="form-control" id="pass2" name="passwordConfirm" maxlength="16"
+								onkeyup="passwordCheck()" placeholder="위 비밀번호를 다시 입력해주세요." type="password"
 								required> 
 								<span id="passMessage" style="font-style: italic; font-size: 12px;"></span>
 						</div>
@@ -84,7 +87,7 @@
 							<label class="form-label" for="Usernickname">NICKNAME</label> <input
 								class="form-control" name="nickName" id="Usernickname"
 								type="text" value="${kakaoMap.nickname}"
-								placeholder="닉네임을 입력하세요(4~8자)" required>
+								placeholder="4~8자 닉네임을 입력하세요." required>
 
 						</div>
 						<div class="mb-2">
@@ -104,7 +107,7 @@
 						<div class="mb-3">
 							<label class="form-label" for="UserPhone">PHONE</label> <input
 								class="form-control" name="phone" id="UserPhone" type="tel"
-								placeholder="'-'제외한 11자리를 입력하세요" maxlength="11">
+								placeholder="'-'제외한 11자리를 입력하세요." maxlength="11">
 						</div>
 
 						<div class="d-grid">
@@ -184,6 +187,35 @@
   </script>
 
 	<script type="text/javascript">
+    // 아이디 중복 확인 함수
+    function IdDuplication() {
+        var userId = $("#userId").val();
+        var regex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{6,}$/;
+        
+        if (!regex.test(userId)) {
+            alert("사용할 수 없는 아이디입니다. 다시 입력해주세요.");
+            return;
+        }
+
+        $.ajax({
+            url: "${path}/member/idCheck", // 중복확인 검사 API의 URL
+            type: "POST",
+            data: {"id": userId},
+            success: function(data) {
+                if (data.result === "duplicated") {
+                    alert("중복된 아이디가 있습니다. 다시 입력해주세요.");
+                } else {
+                    alert("가입 가능한 아이디입니다.");
+                }
+            },
+            error: function() {
+                alert("중복확인 검사에 실패했습니다. 다시 시도해주세요.");
+            }
+        });
+    }
+	</script>
+	
+	<script type="text/javascript">
 	function passwordCheck(){
 			var pass1=$("#pass1").val();
 			var pass2=$("#pass2").val();
@@ -194,12 +226,12 @@
 				$("#passMessage").html("<span style='color:blue;'> 비밀번호가 일치합니다.");
 				$("#password").val(pass1);
 			}
-		}
-    	
-	    $("#enrollSubmit").on("click", () => {
+		};    
+		
+		$("#enrollSubmit").on("click", () => {
 	    	// TODO 전송하기 전에 각 영역에 유효성 검사로직을 추가하는 부분!
 	    	return false;
-	    });
+	    }
 	</script>
 
 	<!-- jQuery-->

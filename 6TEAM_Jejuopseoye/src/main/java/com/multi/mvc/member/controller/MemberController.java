@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.multi.mvc.common.weather.api.WeatherParsing;
 import com.multi.mvc.common.weather.vo.WeatherValue;
@@ -136,17 +135,19 @@ public class MemberController {
 	}
 
 	// AJAX 회원아이디 중복 검사부
-	@GetMapping("/member/idCheck")
-	public ResponseEntity<Map<String, Object>> idCheck(String id) {
-		log.info("아이디 중복 확인 : " + id);
+	@PostMapping("/member/idCheck")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> idCheck(@RequestParam("id") String id) {
+	    log.info("아이디 중복 확인: " + id);
 
-		boolean result = service.validate(id);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("validate", result);
+	    boolean result = service.validate(id);
 
-		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("result", result ? "duplicated" : "not-duplicated");
+
+	    return ResponseEntity.ok(response);
 	}
-	
+
 	@PostMapping("/member/update")
 	public String update(Model model, @ModelAttribute Member updateMember, // request에서 온 값
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember // 세션 값
