@@ -63,25 +63,32 @@
 						<input type="hidden" name="kakaoToKen" value="${kakaoMap.id}">
 
 						<div class="mb-3">
-							<label class="form-label" for="loginUsername">ID</label> 
+							<label class="form-label" for="loginUsername">ID</label>
 							<div class="d-flex align-items-center">
-								<input class="form-control" name="id" id="userId" type="text" maxlength="12"
-									value="${kakaoMap.email}" placeholder="영문소문자와 숫자를 조합하여 6~12자로 입력하세요."  onkeyup="checkId()" required>
-								<button type="button" class="btn btn-primary ms-2" style="width: 120px;" onclick="IdDuplication()">중복확인</button>
+								<input class="form-control" name="id" id="userId" type="text"
+									maxlength="12" value="${kakaoMap.email}"
+									placeholder="영문소문자와 숫자를 조합하여 6~12자로 입력하세요." onkeyup="checkId()"
+									required>
+								<button type="button" class="btn btn-primary ms-2"
+									style="width: 120px;" onclick="IdDuplication()"
+									data-toggle="modal" data-target="#myModal">중복확인</button>
 							</div>
 						</div>
 
 						<div class="mb-3">
 							<label class="form-label" for="loginPassword">PASSWORD</label> <input
-								class="form-control" name="password" id="pass1" onkeyup="passwordCheck()" maxlength="16"
+								class="form-control" name="password" id="pass1"
+								onkeyup="passwordCheck();" maxlength="16"
 								placeholder="비밀번호를 입력하세요" type="password" required>
+
 						</div>
 						<div class="mb-3">
 							<label class="form-label" for="loginPassword2">Confirm
-								your password</label> <input class="form-control" id="pass2" name="passwordConfirm" maxlength="16"
-								onkeyup="passwordCheck()" placeholder="위 비밀번호를 다시 입력해주세요." type="password"
-								required> 
-								<span id="passMessage" style="font-style: italic; font-size: 12px;"></span>
+								your password</label> <input class="form-control" id="pass2"
+								name="passwordConfirm" maxlength="16" onkeyup="passwordCheck()"
+								placeholder="위 비밀번호를 다시 입력해주세요." type="password" required>
+							<span id="passMessage"
+								style="font-style: italic; font-size: 12px;"></span>
 						</div>
 						<div class="mb-3">
 							<label class="form-label" for="Usernickname">NICKNAME</label> <input
@@ -141,6 +148,27 @@
 					style="background-image: url(${path}/resources/img/photo/signup-photo.png);background-size: 100% 100%;"></div>
 			</div>
 		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">아이디 중복확인</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p id="modalMessage"></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary"
+							data-bs-dismiss="modal">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- JavaScript files-->
@@ -193,45 +221,51 @@
         var regex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{6,}$/;
         
         if (!regex.test(userId)) {
-            alert("사용할 수 없는 아이디입니다. 다시 입력해주세요.");
+        	showModal("사용할 수 없는 아이디입니다. 다시 입력해주세요.");
             return;
         }
 
         $.ajax({
-            url: "${path}/member/idCheck", // 중복확인 검사 API의 URL
+            url: "${path}/member/idCheck",
             type: "POST",
             data: {"id": userId},
             success: function(data) {
                 if (data.result === "duplicated") {
-                    alert("중복된 아이디가 있습니다. 다시 입력해주세요.");
+                	showModal("중복된 아이디가 있습니다. 다시 입력해주세요.");
                 } else {
-                    alert("가입 가능한 아이디입니다.");
+                  showModal("가입 가능한 아이디입니다.");
                 }
             },
             error: function() {
-                alert("중복확인 검사에 실패했습니다. 다시 시도해주세요.");
+            	showModal("중복확인 검사에 실패했습니다. 다시 시도해주세요.");
             }
         });
     }
+    
+ 	// 모달창 띄우는 함수
+    function showModal(message) {
+      $("#modalMessage").text(message);
+      $("#myModal").modal("show");
+    }
 	</script>
-	
+
 	<script type="text/javascript">
 	function passwordCheck(){
 			var pass1=$("#pass1").val();
 			var pass2=$("#pass2").val();
+			
 			if(pass1 !=pass2){
-				$("#passMessage").html("<span style='color:red;'> 비밀번호가 서로 일치하지 않습니다.");
+				$("#passMessage").html("<span style='color:red;'>비밀번호가 서로 일치하지 않습니다.");
 			}else{
 
-				$("#passMessage").html("<span style='color:blue;'> 비밀번호가 일치합니다.");
+				$("#passMessage").html("<span style='color:blue;'>비밀번호가 일치합니다.");
 				$("#password").val(pass1);
 			}
 		};    
 		
 		$("#enrollSubmit").on("click", () => {
-	    	// TODO 전송하기 전에 각 영역에 유효성 검사로직을 추가하는 부분!
 	    	return false;
-	    }
+	    });
 	</script>
 
 	<!-- jQuery-->
