@@ -69,8 +69,22 @@
 
 **Back**
 
-- 회원가입, 로그인
-- 카카오 소셜로그인
+<details>
+<summary>회원가입, 로그인 구현</summary>
+<div markdown="1">       
+
+![jeju_signup](https://github.com/ynoep/Jejuopseoye/assets/114046762/a91236e7-2ec7-4bde-a526-d60cf6b53f6b)
+
+</div>
+</details>
+<details>
+<summary>카카오 소셜로그인 구현</summary>
+<div markdown="1">       
+
+![jeju_kakao](https://github.com/ynoep/Jejuopseoye/assets/114046762/a7479de3-ebf8-4ce2-a76a-50e279f1f173)
+
+</div>
+</details>
 
 <br />
 <br />
