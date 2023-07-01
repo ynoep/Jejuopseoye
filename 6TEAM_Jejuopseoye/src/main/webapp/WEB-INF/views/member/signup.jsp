@@ -124,7 +124,7 @@
 						<hr class="my-3 hr-text letter-spacing-2" data-content="OR">
 						<div class="d-grid gap-2">
 							<a
-								href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=f6be3d0db31d9495825cdd8c3d238530&redirect_uri=http://localhost/mvc/member/signup/kakao">
+								href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=b9964ba9ce3b0df04ba39dea5d837027&redirect_uri=http://localhost/mvc/member/signup/kakao">
 								<img src="${path}/resources/img/kakao_signup.png"
 								style="width: 100%;">
 							</a>

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class KaKaoService {
 
 	
-	String id = "f6be3d0db31d9495825cdd8c3d238530";
+	String id = "b9964ba9ce3b0df04ba39dea5d837027";
 	
     public String getToken(String code, String redirectUrl) throws IOException {
         // 인가코드로 토큰받기
@@ -35,8 +35,8 @@ public class KaKaoService {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id="+id);																																																																																																									
-            sb.append("&redirect_uri="+redirectUrl);
+            sb.append("&client_id=" + id);																																																																																																									
+            sb.append("&redirect_uri=" + redirectUrl);
             sb.append("&code=" + code);
 
             bw.write(sb.toString());
