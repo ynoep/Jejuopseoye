@@ -124,7 +124,7 @@
 						<hr class="my-3 hr-text letter-spacing-2" data-content="OR">
 						<div class="d-grid gap-2">
 							<a
-								href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=b9964ba9ce3b0df04ba39dea5d837027&redirect_uri=http://localhost/mvc/member/signup/kakao">
+								href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=554aa95090298c4de4f41fe121fca27f&redirect_uri=http://localhost/mvc/member/signup/kakao">
 								<img src="${path}/resources/img/kakao_signup.png"
 								style="width: 100%;">
 							</a>
@@ -220,31 +220,26 @@
         var userId = $("#userId").val();
         var regex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{6,}$/;
         
-        if (!regex.test(userId)) {
-        	showModal("사용할 수 없는 아이디입니다. 다시 입력해주세요.");
-            return;
-        }
-
         $.ajax({
             url: "${path}/member/idCheck",
             type: "POST",
             data: {"id": userId},
             success: function(data) {
                 if (data.result === "duplicated") {
-                	showModal("중복된 아이디가 있습니다. 다시 입력해주세요.");
+                	showModal("중복된 아이디가 있습니다.<br>다시 입력해주세요.");
                 } else {
                   showModal("가입 가능한 아이디입니다.");
                 }
             },
             error: function() {
-            	showModal("중복확인 검사에 실패했습니다. 다시 시도해주세요.");
+            	showModal("중복확인 검사에 실패했습니다.<br>다시 시도해주세요.");
             }
         });
     }
     
  	// 모달창 띄우는 함수
     function showModal(message) {
-      $("#modalMessage").text(message);
+      $("#modalMessage").html(message);
       $("#myModal").modal("show");
     }
 	</script>

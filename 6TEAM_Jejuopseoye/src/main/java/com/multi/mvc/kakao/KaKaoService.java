@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class KaKaoService {
 
 	
-	String id = "b9964ba9ce3b0df04ba39dea5d837027";
+	String id = "554aa95090298c4de4f41fe121fca27f";
 	
     public String getToken(String code, String redirectUrl) throws IOException {
         // 인가코드로 토큰받기

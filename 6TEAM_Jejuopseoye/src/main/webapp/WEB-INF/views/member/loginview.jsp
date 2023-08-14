@@ -78,7 +78,7 @@
 						<hr class="my-3 hr-text letter-spacing-2" data-content="OR">
 						<div class="d-grid gap-2">
 							<div class="btn btn btn-social">
-							<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=b9964ba9ce3b0df04ba39dea5d837027&redirect_uri=http://localhost/mvc/loginview/kakaoLogin">
+							<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=554aa95090298c4de4f41fe121fca27f&redirect_uri=http://localhost/mvc/loginview/kakaoLogin">
 							<img src="${path}/resources/img/kakao_login.png" style="width: 100%;">
 							</a>
 							</div>
