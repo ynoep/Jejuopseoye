@@ -38,7 +38,8 @@ public class MemberController {
 	private KaKaoService kakaoService;
 	
 	private WeatherParsing weather;
-
+	private int isIdChecked = 0;	// 중복확인 안 함 : 0, 중복확인 성공 : 1, 중복확인 실패 : -1
+	
 	@PostMapping("/login")
 	String login(Model model, String userId, String userPwd) {
 		log.info("id : " + userId + ", pwd : " + userPwd);
@@ -113,8 +114,21 @@ public class MemberController {
 
 	@PostMapping("/member/signup")
 	public String enroll(Model model, @ModelAttribute Member member, @RequestParam("passwordConfirm") String pass2) {
-		log.info("회원가입, member : " + member.toString());
-
+		log.info("회원가입");
+	    
+		if (isIdChecked == 0) {		// 중복확인 하지 않은 경우
+			model.addAttribute("modalMessage", "아이디 중복확인을 해주세요.");
+			model.addAttribute("location", "/member/signup");
+			return "common/msg";
+		}
+		
+		if (isIdChecked == -1) {	// 중복확인 실패
+			model.addAttribute("msg", "사용중인 아이디가 있습니다.\\n다시 입력해주세요.");
+			model.addAttribute("location", "/member/signup");
+			return "common/msg";
+		}
+		
+		
 		// 비밀번호 일치하는지 검사 수행
 		if (!member.getPassword().equals(pass2)) {
 			model.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
@@ -143,7 +157,15 @@ public class MemberController {
 	    boolean result = service.validate(id);
 
 	    Map<String, Object> response = new HashMap<>();
-	    response.put("result", result ? "duplicated" : "not-duplicated");
+	    if (result) {
+	        response.put("result", "duplicated");
+	        response.put("message", "중복된 아이디가 있습니다.<br> 다시 입력해주세요.");
+	        isIdChecked = -1;
+	    } else {
+	        response.put("result", "not-duplicated");
+	        response.put("message", "사용 가능한 아이디입니다.");
+	        isIdChecked = 1; // 아이디 중복확인 성공
+	    }
 
 	    return ResponseEntity.ok(response);
 	}

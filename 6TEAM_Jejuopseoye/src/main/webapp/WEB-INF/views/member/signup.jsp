@@ -70,7 +70,7 @@
 									placeholder="영문소문자와 숫자를 조합하여 6~12자로 입력하세요." onkeyup="checkId()"
 									required>
 								<button type="button" class="btn btn-primary ms-2"
-									style="width: 120px;" onclick="IdDuplication()"
+									style="width: 120px;" onclick="dbCheckId()" id="idCheck"
 									data-toggle="modal" data-target="#myModal">중복확인</button>
 							</div>
 						</div>
@@ -216,9 +216,16 @@
 
 	<script type="text/javascript">
     // 아이디 중복 확인 함수
-    function IdDuplication() {
+    var isIdChecked = 0;
+    
+    function dbCheckId() {
         var userId = $("#userId").val();
-        var regex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{6,}$/;
+        var regex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{6,12}$/;
+        
+        if (!regex.test(userId)) {
+        	showModal("형식에 맞게 아이디를 입력해주세요.");
+        	return;
+        }
         
         $.ajax({
             url: "${path}/member/idCheck",
@@ -226,10 +233,13 @@
             data: {"id": userId},
             success: function(data) {
                 if (data.result === "duplicated") {
-                	showModal("중복된 아이디가 있습니다.<br>다시 입력해주세요.");
+                	showModal(data.message);
+                	isIdChecked = -1;	// 중복된 아이디 있음
                 } else {
-                  showModal("가입 가능한 아이디입니다.");
+                	showModal(data.message);
+                	isIdChecked = 1;	// 중복확인 성공
                 }
+                console.log("=================idIdChecked:  ", idIdChecked);
             },
             error: function() {
             	showModal("중복확인 검사에 실패했습니다.<br>다시 시도해주세요.");
@@ -242,25 +252,45 @@
       $("#modalMessage").html(message);
       $("#myModal").modal("show");
     }
-	</script>
 
-	<script type="text/javascript">
-	function passwordCheck(){
-			var pass1=$("#pass1").val();
-			var pass2=$("#pass2").val();
+ 	function passwordCheck(){
+			var pass1 = $("#pass1").val();
+			var pass2 = $("#pass2").val();
 			
-			if(pass1 !=pass2){
-				$("#passMessage").html("<span style='color:red;'>비밀번호가 서로 일치하지 않습니다.");
+			if(pass1 !== pass2){
+				$("#passMessage").html("<span style='color:red;'>비밀번호가 서로 일치하지 않습니다.</span>");
 			}else{
 
-				$("#passMessage").html("<span style='color:blue;'>비밀번호가 일치합니다.");
+				$("#passMessage").html("<span style='color:blue;'>비밀번호가 일치합니다.</span>");
 				$("#password").val(pass1);
 			}
 		};    
 		
-		$("#enrollSubmit").on("click", () => {
-	    	return false;
-	    });
+		$("#enrollSubmit").on("click", function() {
+		    var userId = $("#userId").val();
+		    var pass1 = $("#pass1").val();
+		    var pass2 = $("#pass2").val();
+		    
+		    var regex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{6,12}$/;
+		    
+		    if (!regex.test(userId)) {
+		        showModal("형식에 맞게 아이디를 입력해주세요.");
+		        return false;
+		    }
+
+		    if (pass1 !== pass2) {
+		        $("#passMessage").html("<span style='color:red;'>비밀번호가 서로 일치하지 않습니다.</span>");
+		        return false;
+		    }
+
+		    if (isIdChecked === 0) {
+		        showModal("아이디 중복확인 후 가입해주세요.");
+		        return false;
+		    }
+
+		    // 모든 유효성 검사 통과한 경우 허용
+		    return true;
+		});
 	</script>
 
 	<!-- jQuery-->
